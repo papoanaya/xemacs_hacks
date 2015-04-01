@@ -1,0 +1,2 @@
+- Use an external javascript interpreter to deal with netscape style
+  autoproxy functions.

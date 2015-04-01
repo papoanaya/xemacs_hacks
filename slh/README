@@ -1,0 +1,30 @@
+-*- text -*-
+
+Here is a small collection of (mostly) my hacks.  Some of which are
+even useful.
+
+dired-tar.el       -- Handle tarballs in Dired.  Updated to support
+                      bzip2, lzma, and xz.
+ffi-mpd.el         -- non-working
+ges-post.el        -- Ease sending lisp to gnu.emacs.sources
+google-query.el    -- Search Google from within (S)XEmacs
+linux-kernel.el    -- Check the lastest Linux kernel release
+lj.el              -- Post entries to a LiveJournal blog
+mozmail.el         -- Compose mail in a emacs MUA from mailto links in
+                      Mozilla
+patch-keywords.el  -- An aid for XEmacs patch reviewers
+pkg-build.el       -- Automate the drudgery of the XEmacs Packages
+                      Release Manager
+pui-update.el      -- Update XEmacs packages from cron (non-working)
+sxell.el           -- SXEmacs interface to the Emacs Lisp List
+snap.el            -- An updated version of snap.el (from the howm
+		      guy).  This one supports (S)XEmacs.
+
+
+Installation:
+============
+Basically, put it in you load-path, optionally byte-compile it, add
+(require '<libname>) in your `user-init-file'.
+
+See the comments in each file for any idiosyncrasies or unusual set up
+procedures.

@@ -1,0 +1,129 @@
+# where the url lisp files should go
+srcdir  = @srcdir@
+prefix  = @prefix@
+datadir = @datadir@
+lispdir = @lispdir@
+top_srcdir = @top_srcdir@
+confdir = $(datadir)/emacs/w3
+
+VPATH=$(srcdir)
+
+############## no user servicable parts beyond this point ###################
+# Have to preload a few things to get a nice clean compile
+
+GNUSDIR   = @GNUS@
+INSTALL   = @INSTALL@
+RM        = rm -f
+EMACS     = @EMACS@
+
+# compile with noninteractive and relatively clean environment
+BATCHFLAGS = -batch -q -no-site-file
+
+# selectively contaminate the clean environment
+DEPS = -l $(srcdir)/docomp.el -l $(srcdir)/url-vars.el
+EMACS_CMD = GNUSDIR=$(GNUSDIR) URLSRCDIR=$(srcdir) $(EMACS) $(BATCHFLAGS) $(DEPS)
+
+SOURCES = \
+	url-about.el	\
+	url-auth.el	\
+	url-cache.el	\
+	url-cid.el	\
+	url-cid.el	\
+	url-cookie.el	\
+	url-dav.el	\
+	url-dired.el	\
+	url-expand.el	\
+	url-file.el	\
+	url-ftp.el	\
+	url-gw.el	\
+	url-handlers.el	\
+	url-history.el	\
+	url-http.el	\
+	url-https.el	\
+	url-imap.el	\
+	url-irc.el	\
+	url-ldap.el	\
+	url-mailto.el	\
+	url-methods.el	\
+	url-misc.el	\
+	url-news.el	\
+	url-nfs.el	\
+	url-ns.el	\
+	url-parse.el	\
+	url-privacy.el	\
+	url-proxy.el	\
+	url-util.el	\
+	url-vars.el	\
+	url.el		\
+	vc-dav.el
+
+OBJECTS    = $(SOURCES:.el=.elc)
+
+AUTOSOURCES = auto-autoloads.el custom-load.el url-auto.el
+AUTOOBJECTS = $(AUTOSOURCES:.el=.elc)
+
+# Some makes appear to choke if I try to do a substitution on a really
+# large macro like SOURCES when it included all of these, so lets combine
+# everything now that it has been appropriately munged in smaller chunks.
+ALLSOURCES = $(SOURCES) $(AUTOSOURCES)
+ALLOBJECTS = $(OBJECTS) $(AUTOOBJECTS)
+
+# Warning!  Currently, the following file can _NOT_ be bytecompiled.
+EXTRAS = docomp.el
+
+.SUFFIXES: .elc .el
+
+.el,v.el:
+	co -q $<
+
+.el.elc:
+	$(EMACS_CMD) -f batch-byte-compile $<
+
+all:	$(AUTOSOURCES) url
+
+url-auto.el: auto-autoloads.el
+	$(EMACS_CMD) -f emacs-batch-build-autoloads $(srcdir) auto-autoloads.el
+
+auto-autoloads.el: $(SOURCES) $(URLSOURCES)
+	$(EMACS_CMD) -f emacs-batch-build-autoloads $(srcdir) auto-autoloads.el
+
+custom-load.el: $(SOURCES) $(URLSOURCES)
+	$(EMACS_CMD) @REBUILD_CUSTOMLOADS@
+	if [ -f cus-load.el ]; then mv cus-load.el custom-load.el; fi
+
+url:	$(ALLSOURCES) $(ALLOBJECTS)
+	@echo Build of $@ complete...
+
+xemacs-url: $(ALLSOURCES) $(ALLOBJECTS)
+	@echo Build of $@ complete...
+
+fast:	$(ALLSOURCES) $(EXTRAS)
+	$(EMACS_CMD) -f batch-byte-compile $(ALLSOURCES)
+	@echo Build of URL complete...
+
+install: all
+	@echo Installing in $(lispdir)
+	( if [ ! -d $(lispdir) ]; then mkdir -p $(lispdir); fi )
+	for x in $(ALLSOURCES) $(EXTRAS) $(ALLOBJECTS); do		\
+		if [ -f $$x ]; then					\
+			$(INSTALL) -m 644 $$x $(lispdir);		\
+		else							\
+			$(INSTALL) -m 644 $(srcdir)/$$x $(lispdir);	\
+		fi							\
+	done;
+
+distclean: clean
+	$(RM) config.* Makefile $(AUTOSOURCES)
+
+clean:
+	$(RM) *.elc *~
+
+# Automatic makefile rebuilding
+Makefile: $(srcdir)/Makefile.in ../config.status
+	( cd .. ; CONFIG_FILES=lisp/Makefile ./config.status )
+
+$(top_srcdir)/configure: $(top_srcdir)/configure.in $(top_srcdir)/aclocal.m4
+	cd $(top_srcdir) && autoreconf
+
+../config.status: $(top_srcdir)/configure
+	cd .. && ./config.status --recheck

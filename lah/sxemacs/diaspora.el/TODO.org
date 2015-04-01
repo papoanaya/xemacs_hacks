@@ -1,0 +1,83 @@
+#+TITLE:     TODO.org
+#+AUTHOR:    Christian Giménez
+#+EMAIL:     cnngimenez@gmail.com
+#+DATE:      2012-03-16 vie
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+SEQ_TODO:  TODO PARTIALLY-DONE | DONE 
+
+* Interface Features [1/3]
+** DONE Main menu
+   There is a Main menu now! :)
+
+** PARTIALLY-DONE Organize Customization Group for Diaspora
+** TODO Add icons image to the likes, reshare, and comments
+
+* Notification Features [0/2]
+** TODO Makes notifications "very" visible by the user
+   Notifications are importants in some way, make them visible as soon as the user calls the =diaspora= function.
+
+   Maybe finding the way to get the amount of unreaded notifications and make it visible in the status line.
+
+** TODO Let the user change a notification state
+   Unreaded notifications doesn't change its states, never will change to "readed"!
+
+   There must be a button that change it state.
+
+* Stream, Comments and Posting Features [5/7]
+** DONE Put the comments in the stream buffer
+   It should be possible to read comments in the stream buffer, as seen on the diaspora web.
+** DONE Show how much people and who likes a message
+   Like feature is working, diaspora.el only shows how many people likes something... but who are those people?
+
+** TODO Show how much people and who shares a message
+   The share feature is working, but diaspora.el doesn't have it yet :-( 
+
+** DONE Get the streams from an interval of dates
+   The stream we actually fetch are from the current date. But what about the other posts?   
+
+** TODO Add the "amount of reshares" element apart from amount of like and amount of comments
+
+** DONE What about a user stream? 
+   There is no function for retrieving all user posts apart from 
+   :diaspora-get-stream-by-name "u/username"
+** DONE And the stream for an aspect?
+   Get a stream only for a selected aspect.
+
+* Privates Message Features [2/3]
+  For:
+  - [X] See the list of messages
+  - [X] See a message thread
+  - [ ] Post a messagee
+
+
+
+* Licence
+
+    TODO.org
+    Copyright (C) 2012  Giménez, Christian N.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Viernes 16 De Marzo Del 2012    
+
+

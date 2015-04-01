@@ -1,0 +1,50 @@
+# Usage in XEmacs
+## Introduction
+
+This is a very crude hack to use yasnippets on XEmacs. It was developed
+in the experimental version of XEmacs 21.5
+
+## Usage
+The way it is used is different to the *regular* install. Most of it
+being a hack, I should be able to refine it as I learn how it was
+developed.
+
+*  Add the location of your yasnippet distribution in your load path.
+
+    (add-to-list 'load-path "~/.xemacs/yasnippet")
+    (require 'yasnippet)
+
+*  Configure the trigger key and load the snippets on custom.el
+
+    (setq yas/trigger-key " y"))
+    (setq yas/snippet-dirs '("~/.xemacs/yasnippet/snippets" "~/.xemacs/snippets/"))
+    (dolist (snipdir yas/snippet-dirs)
+      (yas/load-directory snipdir t))
+
+*  Add hooks to those modes that you want to use yasnippets
+
+     (setq yas-mode-list '(c-mode-hook
+                      emacs-lisp-mode-hook))
+     (dolist (mode-item yas-mode-list)
+        (add-hook mode-item
+              'yas/minor-mode-on
+              'append))
+
+
+* Add highlights
+  There is a reasonable default highlight color. But if you want to
+  change them, you can add the following in your custom.el.
+
+     (set-face-foreground 
+         'yas/field-highlight-face "black") 
+     (set-face-background 
+         'yas/field-highlight-face "white") 
+
+
+## Usage 
+
+Usage is different being that there are right now a lot of
+limitations. Being that overlays work differently in XEmacs, for now
+field values are entered in the mminibuffer. It will do the
+substitution, but it will not be as nice as gnu emacs. This should
+change, but for now it provides the functionality that I'm looking for.

@@ -1,0 +1,33 @@
+# Emacs files ported to XEmacs/SXEmacs
+
+The following items have been ported by me to use them in S/XEmacs. 
+  * identica-mode-w3.el - identica mode using the default XEmacs w3
+    library.
+  * identica-mode-url.el - identica mode using the url library from
+    Savannah (included in the url directory)
+  * ljupdate - Live Journal Update for S/XEmacs.
+  * markdown-mode - Mark down mode ported to S/XEmacs. these are needed
+    for diaspora.el in either system.
+  * longlines.el - Long lines ported to S/XEmacs. Needed by identica
+    mode.
+  * nero.el - Nero Browsing mode for S/XEmacs.
+  * term.el - term, terminal.el - Terminal modes for S/XEmacs.
+  * org - org mode that works on S/XEmacs. Some features not available. 
+  * url - Copy of the URL library.
+  * yasnippet - Yasnippets that runs on S/XEmacs. Not all features
+    supported.
+  * w3m - version of the w3m browser emacs driver.
+  * diaspora.el - Diaspora mode
+  * emacs-jabber - Emacs Jabber Mode
+  
+# xemacs - XEmacs specific features
+
+  These files are needed to run diaspora.el
+  
+  * diaspora.el
+  * url
+# sxemacs - SXEmacs specific features
+  These files are needed to run diaspora.el
+  * json.el
+  * diaspora.el
+  * url
